@@ -25,6 +25,11 @@ public class ArticuloServiceImpl implements ArticuloService {
     }
 
     @Override
+    public List<Articulo> findAllOrdenadosNombre() {
+        return this.articuloRepository.findAllByOrderByNombreAsc();
+    }
+
+    @Override
     public Articulo findById(Long id) {
         return this.articuloRepository.findById(id).orElse(null);
     }
@@ -42,7 +47,7 @@ public class ArticuloServiceImpl implements ArticuloService {
         articuloActual.setNombre(articulo.getNombre());
         articuloActual.setPrecio(articulo.getPrecio());
         articuloActual.setArticulosFamilia(articulo.getArticulosFamilia());
-        articuloActual.setCodigoDeBarra(articulo.getCodigoDeBarra());
+        articuloActual.setCodigoBarra(articulo.getCodigoBarra());
         articuloActual.setFechaAlta(articulo.getFechaAlta());
         articuloActual.setStock(articulo.getStock());
 
@@ -52,13 +57,16 @@ public class ArticuloServiceImpl implements ArticuloService {
     }
 
     @Override
-    public Articulo cambiarEstado(Long id) {
+    public Articulo cambiarEstado(Articulo articulo, Long id) {
 
-        Articulo articulo = this.findById(id);
+        Articulo actual = this.findById(id);
+        Articulo cambiadoEstado;
 
-        articulo.setActivo(!articulo.isActivo());
+        actual.setActivo(!articulo.isActivo());
 
-        return this.save(articulo);
+        cambiadoEstado = this.save(actual);
+
+        return cambiadoEstado;
     }
 
     @Override

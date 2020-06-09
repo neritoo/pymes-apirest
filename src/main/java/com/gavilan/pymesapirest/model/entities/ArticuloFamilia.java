@@ -13,44 +13,33 @@ public class ArticuloFamilia implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // Capitalizados para matchear con los que hicieron el backend de la catedra (dudoso)
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long IdArticuloFamilia;
+    private Long id;
 
-    private String Nombre;
+    private String nombre;
 
-    public ArticuloFamilia() {
-
+    public Long getId() {
+        return id;
     }
 
-    public ArticuloFamilia(Long idArticuloFamilia, String nombre) {
-        IdArticuloFamilia = idArticuloFamilia;
-        Nombre = nombre;
-    }
-
-    public Long getIdArticuloFamilia() {
-        return IdArticuloFamilia;
-    }
-
-    public void setIdArticuloFamilia(Long idArticuloFamilia) {
-        IdArticuloFamilia = idArticuloFamilia;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
     }
 
     @Override
     public String toString() {
         return "ArticuloFamilia{" +
-                "IdArticuloFamilia=" + IdArticuloFamilia +
-                ", Nombre='" + Nombre + '\'' +
+                "IdArticuloFamilia=" + id +
+                ", Nombre='" + nombre + '\'' +
                 '}';
     }
 }

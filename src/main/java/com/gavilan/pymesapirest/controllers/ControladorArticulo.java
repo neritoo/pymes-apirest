@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +33,7 @@ public class ControladorArticulo {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            articulos = articuloService.findAll();
+            articulos = articuloService.findAllOrdenadosNombre();
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar la consulta en la base de datos.");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -67,8 +66,8 @@ public class ControladorArticulo {
     }
 
     @PutMapping("/articulos/estado/{id}")
-    public Articulo cambiarEstadoArticulo(@PathVariable Long id) {
-        return articuloService.cambiarEstado(id);
+    public Articulo cambiarEstadoArticulo(@RequestBody Articulo articulo, @PathVariable Long id) {
+        return articuloService.cambiarEstado(articulo, id);
     }
 
     @DeleteMapping("/articulos/{id}")

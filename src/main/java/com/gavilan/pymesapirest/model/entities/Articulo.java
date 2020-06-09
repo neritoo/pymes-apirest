@@ -17,94 +17,81 @@ public class Articulo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long IdArticulo;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    private String Nombre;
+    private String nombre;
 
-    private Double Precio;
+    private Double precio;
 
-    private String CodigoDeBarra;
+    private String codigoBarra;
 
-    private Long Stock;
+    private Long stock;
 
-    private Date FechaAlta;
+    @Column(name = "fecha_alta")
+    private Date fechaAlta;
 
-    private boolean Activo;
+    private boolean activo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IdArticuloFamilia")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_articulo_familia")
     private ArticuloFamilia ArticulosFamilia;
 
-    public Articulo() {
-
+    public Long getId() {
+        return id;
     }
 
-    public Articulo(Long idArticulo, String nombre, Double precio, String codigoDeBarra, Long stock, Date fechaAlta, boolean activo) {
-        IdArticulo = idArticulo;
-        Nombre = nombre;
-        Precio = precio;
-        CodigoDeBarra = codigoDeBarra;
-        Stock = stock;
-        FechaAlta = fechaAlta;
-        Activo = activo;
-    }
-
-    public Long getIdArticulo() {
-        return IdArticulo;
-    }
-
-    public void setIdArticulo(Long idArticulo) {
-        IdArticulo = idArticulo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
     }
 
     public Double getPrecio() {
-        return Precio;
+        return precio;
     }
 
     public void setPrecio(Double precio) {
-        Precio = precio;
+        this.precio = precio;
     }
 
-    public String getCodigoDeBarra() {
-        return CodigoDeBarra;
+    public String getCodigoBarra() {
+        return codigoBarra;
     }
 
-    public void setCodigoDeBarra(String codigoDeBarra) {
-        CodigoDeBarra = codigoDeBarra;
+    public void setCodigoBarra(String codigoBarra) {
+        this.codigoBarra = codigoBarra;
     }
 
     public Long getStock() {
-        return Stock;
+        return stock;
     }
 
     public void setStock(Long stock) {
-        Stock = stock;
+        this.stock = stock;
     }
 
     public Date getFechaAlta() {
-        return FechaAlta;
+        return fechaAlta;
     }
 
     public void setFechaAlta(Date fechaAlta) {
-        FechaAlta = fechaAlta;
+        this.fechaAlta = fechaAlta;
     }
 
     public boolean isActivo() {
-        return Activo;
+        return activo;
     }
 
     public void setActivo(boolean activo) {
-        Activo = activo;
+        this.activo = activo;
     }
 
     public ArticuloFamilia getArticulosFamilia() {
@@ -118,13 +105,13 @@ public class Articulo implements Serializable {
     @Override
     public String toString() {
         return "Articulo{" +
-                "IdArticulo=" + IdArticulo +
-                ", Nombre='" + Nombre + '\'' +
-                ", Precio=" + Precio +
-                ", CodigoDeBarra='" + CodigoDeBarra + '\'' +
-                ", Stock=" + Stock +
-                ", FechaAlta=" + FechaAlta +
-                ", Activo=" + Activo +
+                "IdArticulo=" + id +
+                ", Nombre='" + nombre + '\'' +
+                ", Precio=" + precio +
+                ", CodigoDeBarra='" + codigoBarra + '\'' +
+                ", Stock=" + stock +
+                ", FechaAlta=" + fechaAlta +
+                ", Activo=" + activo +
                 '}';
     }
 
