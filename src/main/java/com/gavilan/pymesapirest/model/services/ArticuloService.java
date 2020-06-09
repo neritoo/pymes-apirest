@@ -1,6 +1,8 @@
 package com.gavilan.pymesapirest.model.services;
 
 import com.gavilan.pymesapirest.model.entities.Articulo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -10,6 +12,8 @@ import java.util.List;
 public interface ArticuloService {
 
     List<Articulo> findAll();
+
+    Page<Articulo> findAll(Pageable pageable);
 
     List<Articulo> findAllOrdenadosNombre();
 

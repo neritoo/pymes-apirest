@@ -2,6 +2,8 @@ package com.gavilan.pymesapirest.model.services;
 
 import com.gavilan.pymesapirest.model.dao.ArticuloRepository;
 import com.gavilan.pymesapirest.model.entities.Articulo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,11 @@ public class ArticuloServiceImpl implements ArticuloService {
     @Override
     public List<Articulo> findAll() {
         return (List<Articulo>) this.articuloRepository.findAll();
+    }
+
+    @Override
+    public Page<Articulo> findAll(Pageable pageable) {
+        return articuloRepository.findAll(pageable);
     }
 
     @Override
