@@ -11,11 +11,9 @@ import java.util.List;
  */
 public interface ArticuloService {
 
-    // List<Articulo> findAll();
-
-    Page<Articulo> findAll(Pageable pageable);
-
     List<Articulo> findAllOrdenadosNombre();
+
+    Page<Articulo> findAllFiltrado(String nombre, Boolean activo, Pageable pageable);
 
     Articulo findById(Long id);
 

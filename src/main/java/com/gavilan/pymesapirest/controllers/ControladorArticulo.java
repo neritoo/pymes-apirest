@@ -30,13 +30,15 @@ public class ControladorArticulo {
     }
 
     @GetMapping("/articulos/page/{page}")
-    public ResponseEntity<?> getArticulos(@PathVariable Integer page) {
+    public ResponseEntity<?> getArticulos(@RequestParam(defaultValue = "", required = false) String articulo, @RequestParam(required = false) Boolean activo, @PathVariable Integer page) {
         Map<String, Object> response = new HashMap<>();
         Pageable pageable = PageRequest.of(page, 10);
 
         Page<Articulo> articulos;
         try {
-            articulos = articuloService.findAll(pageable);
+
+            articulos = articuloService.findAllFiltrado(articulo, activo, pageable);;
+
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar la consulta en la base de datos.");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

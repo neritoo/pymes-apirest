@@ -22,13 +22,18 @@ public class ArticuloServiceImpl implements ArticuloService {
     }
 
     @Override
-    public Page<Articulo> findAll(Pageable pageable) {
-        return articuloRepository.findAll(pageable);
+    public List<Articulo> findAllOrdenadosNombre() {
+        return this.articuloRepository.findAllByOrderByNombreAsc();
     }
 
     @Override
-    public List<Articulo> findAllOrdenadosNombre() {
-        return this.articuloRepository.findAllByOrderByNombreAsc();
+    public Page<Articulo> findAllFiltrado(String nombre, Boolean activo, Pageable pageable) {
+
+        if (activo == null) {
+            return this.articuloRepository.findAllByNombreContaining(nombre, pageable);
+        }
+
+        return this.articuloRepository.findAllByNombreContainingAndActivo(nombre, activo, pageable);
     }
 
     @Override
