@@ -14,8 +14,8 @@ public interface ArticuloRepository extends JpaRepository<Articulo, Long> {
 
     List<Articulo> findAllByOrderByNombreAsc();
 
-    Page<Articulo> findAllByNombreContaining(String termino, Pageable pageable);
+    Page<Articulo> findAllByNombreContainingIgnoringCaseOrderByNombreAsc(String termino, Pageable pageable);
 
-    Page<Articulo> findAllByNombreContainingAndActivo(String termino, Boolean activo, Pageable pageable);
+    Page<Articulo> findAllByNombreContainingIgnoringCaseAndActivoOrderByNombreAsc(String termino, Boolean activo, Pageable pageable);
 
 }
