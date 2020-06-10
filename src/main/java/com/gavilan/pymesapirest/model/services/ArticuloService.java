@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface ArticuloService {
 
-    List<Articulo> findAll();
+    // List<Articulo> findAll();
 
     Page<Articulo> findAll(Pageable pageable);
 
@@ -19,12 +19,12 @@ public interface ArticuloService {
 
     Articulo findById(Long id);
 
-
     Articulo save(Articulo articulo);
 
     Articulo update(Articulo articulo, Long id);
 
+    void delete(Long id);
+
     Articulo cambiarEstado(Articulo articulo, Long id);
 
-    void delete(Long id);
 }

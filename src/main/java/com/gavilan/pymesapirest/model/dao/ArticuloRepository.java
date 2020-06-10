@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface ArticuloRepository extends JpaRepository<Articulo, Long> {
 
-    public List<Articulo> findAllByOrderByNombreAsc();
+    List<Articulo> findAllByOrderByNombreAsc();
 
 }

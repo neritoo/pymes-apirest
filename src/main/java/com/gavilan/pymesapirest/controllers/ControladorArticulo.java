@@ -33,7 +33,20 @@ public class ControladorArticulo {
     public ResponseEntity<?> getArticulos(@PathVariable Integer page) {
         Map<String, Object> response = new HashMap<>();
         Pageable pageable = PageRequest.of(page, 10);
-        Page<Articulo> articulos = articuloService.findAll(pageable);
+
+        Page<Articulo> articulos;
+        try {
+            articulos = articuloService.findAll(pageable);
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al realizar la consulta en la base de datos.");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (articulos.getSize() == 0) {
+            response.put("mensaje", "No existen articulos en la base de datos.");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
 
         response.put("Lista", articulos);
 
@@ -65,18 +78,60 @@ public class ControladorArticulo {
     }
 
     @GetMapping("/articulos/{id}")
-    public Articulo getArticulo(@PathVariable Long id) {
-        return articuloService.findById(id);
+    public ResponseEntity<?> getArticulo(@PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
+        Articulo articulo;
+        try {
+            articulo = articuloService.findById(id);
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al acceder al artículo en la base de datos.");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (articulo == null) {
+            response.put("mensaje", "El artículo solicitado no existe en la base de datos");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        response.put("articulo", articulo);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/articulos")
-    public Articulo crearArticulo(@RequestBody Articulo articulo) {
-        return articuloService.save(articulo);
+    public ResponseEntity<?> crearArticulo(@RequestBody Articulo articulo) {
+        Map<String, Object> response = new HashMap<>();
+        Articulo articuloNuevo;
+
+        try {
+            articuloNuevo = articuloService.save(articulo);
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al realizar inserción en la base de datos");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("mensaje", "Artículo cread con éxito.");
+        response.put("articulo", articuloNuevo);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/articulos/{id}")
-    public Articulo modificarArticulo(@RequestBody Articulo articulo, @PathVariable Long id) {
-        return articuloService.update(articulo, id);
+    public ResponseEntity<?> modificarArticulo(@RequestBody Articulo articulo, @PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
+        Articulo articuloActualizado;
+
+        try {
+            articuloActualizado = articuloService.update(articulo, id);
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al actualizar artículo en la base de datos.");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("mensaje", "Artículo actualizado con éxito.");
+        response.put("articulo", articuloActualizado);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/articulos/estado/{id}")

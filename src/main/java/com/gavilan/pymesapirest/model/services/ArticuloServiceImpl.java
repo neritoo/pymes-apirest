@@ -22,11 +22,6 @@ public class ArticuloServiceImpl implements ArticuloService {
     }
 
     @Override
-    public List<Articulo> findAll() {
-        return (List<Articulo>) this.articuloRepository.findAll();
-    }
-
-    @Override
     public Page<Articulo> findAll(Pageable pageable) {
         return articuloRepository.findAll(pageable);
     }

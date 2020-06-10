@@ -17,13 +17,14 @@ public class Articulo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
 
     private Double precio;
 
+    @Column(name = "codigo_barra")
     private String codigoBarra;
 
     private Long stock;
