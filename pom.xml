@@ -73,6 +73,5 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/neritoo/pymes-apirest.git</developerConnection>
-      <tag>HEAD</tag>
   </scm>
 </project>
