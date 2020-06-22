@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.gavilan</groupId>
     <artifactId>pymes-apirest</artifactId>
-    <version>1.1.2-SNAPSHOT</version>
+    <version>1.1.2</version>
     <name>pymes-apirest</name>
     <description>Sistema que maneja articulos.</description>
 
@@ -73,6 +73,6 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/neritoo/pymes-apirest.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>pymes-apirest-1.1.2</tag>
   </scm>
 </project>
